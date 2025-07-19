@@ -3,20 +3,23 @@ DeFi Credit Scoring System - The goal is to develop a robust machine learning mo
 
 The Architecture for this model is as follows
 
-┌─────────────────────┐ ┌──────────────────────┐ ┌─────────────────────┐
-│ │ │ │ │ │
-│ Data Ingestion │────▶│ Feature Engineering │────▶│ Scoring Engine │
-│ Layer │ │ Pipeline │ │ │
-│ │ │ │ │ │
-└─────────────────────┘ └──────────────────────┘ └─────────────────────┘
-│ │ │
-▼ ▼ ▼
-┌─────────────────────┐ ┌──────────────────────┐ ┌─────────────────────┐
-│ │ │ │ │ │
-│ Data Validation │ │ Behavioral Analysis │ │ Risk Categorization│
-│ & Preprocessing │ │ Component │ │ & Reporting │
-│ │ │ │ │ │
-└─────────────────────┘ └──────────────────────┘ └─────────────────────┘
+<pre>
+┌─────────────────────┐     ┌──────────────────────┐     ┌─────────────────────┐
+│                     │     │                      │     │                     │
+│   Data Ingestion    │────▶│  Feature Engineering │────▶│   Scoring Engine    │
+│     Layer           │     │       Pipeline       │     │                     │
+│                     │     │                      │     │                     │
+└─────────────────────┘     └──────────────────────┘     └─────────────────────┘
+         │                           │                           │
+         ▼                           ▼                           ▼
+┌─────────────────────┐     ┌──────────────────────┐     ┌─────────────────────┐
+│                     │     │                      │     │                     │
+│  Data Validation    │     │ Behavioral Analysis  │     │  Risk Categorization│
+│  & Preprocessing    │     │     Component        │     │    & Reporting      │
+│                     │     │                      │     │                     │
+└─────────────────────┘     └──────────────────────┘     └─────────────────────┘
+</pre>
+
 
 ┌─────────────────────┐     ┌──────────────────────┐     ┌─────────────────────┐
 │                     │     │                      │     │                     │
