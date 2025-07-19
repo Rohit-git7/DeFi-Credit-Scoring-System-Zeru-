@@ -464,3 +464,7 @@ Based on the weighted scoring system and the observed data patterns:
 - **Risk Segmentation**: Clear separation between tiers
 - **Component Balance**: Well-distributed contributions across scoring components
 
+
+<img width="5855" height="4770" alt="image" src="https://github.com/user-attachments/assets/8189ec59-13b5-48f1-9d2e-0a3bd41282c6" />
+
+
