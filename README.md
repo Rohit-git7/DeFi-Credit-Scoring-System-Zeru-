@@ -234,9 +234,8 @@ Data Loading → Chunked Processing → Vectorized Operations → Memory Managem
 
 ### Adding New Features:
 def _new_risk_features(self, wallet_data):
-# Custom feature logic
 return features
-# Register in main feature calculation
+
 def _calculate_wallet_features(self, wallet_data):
     features.update(self._new_risk_features(wallet_data))
 
