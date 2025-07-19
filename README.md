@@ -1,9 +1,241 @@
 # DeFi-Credit-Scoring-System-Zeru-
 DeFi Credit Scoring System - The goal is to develop a robust machine learning model that assigns a credit score between 0 and 1000 to each wallet, based solely on historical transaction behavior. Higher scores indicate reliable and responsible usage; lower scores reflect risky, bot-like, or exploitative behavior.
 
+The Architecture for this model is as follows:
+
+┌─────────────────────┐     ┌──────────────────────┐     ┌─────────────────────┐
+│                     │     │                      │     │                     │
+│   Data Ingestion    │────▶│  Feature Engineering │────▶│   Scoring Engine    │
+│     Layer           │     │       Pipeline       │     │                     │
+│                     │     │                      │     │                     │
+└─────────────────────┘     └──────────────────────┘     └─────────────────────┘
+         │                           │                           │
+         ▼                           ▼                           ▼
+┌─────────────────────┐     ┌──────────────────────┐     ┌─────────────────────┐
+│                     │     │                      │     │                     │
+│  Data Validation    │     │ Behavioral Analysis  │     │  Risk Categorization│
+│  & Preprocessing    │     │     Component        │     │    & Reporting      │
+│                     │     │                      │     │                     │
+└─────────────────────┘     └──────────────────────┘     └─────────────────────┘
 
 
-Based on the analysis report provided, here's the filled-in analysis.md with the actual data:
+Core Components Breakdown
+1. Data Ingestion Layer
+Purpose: Handle raw transaction data input and initial processing
+
+def load_data(json_file_path) -> pd.DataFrame
+    ├── Parse JSON to DataFrame
+    ├── Extract nested actionData fields
+    ├── Apply field mapping (userWallet -> wallet)
+    ├── Validate required fields
+    └── Return structured DataFrame
+    
+Data Flow:
+Raw JSON → DataFrame → Field Mapping → Validation → Structured Data
+
+2. Data Validation & Preprocessing Layer
+Purpose: Clean, validate, and normalize transaction data
+
+Input Data
+    ├── Convert timestamps (Unix → DateTime)
+    ├── Normalize amounts (handle token decimals)
+    ├── Filter invalid transactions
+    ├── Remove zero/negative amounts
+    └── Validate data ranges
+    
+3. Feature Engineering Pipeline
+Purpose: Transform raw transaction data into meaningful features for scoring
+
+Wallet Data → [Feature Extractors] → Feature Vector
+                     │
+    ┌────────────────┼────────────────┐
+    ▼                ▼                ▼
+[Basic Metrics] [Behavioral] [Risk Indicators]
+
+Feature Extractors:
+def _basic_transaction_features():
+    ├── Transaction count and frequency
+    ├── Asset and action diversity
+    ├── Volume statistics
+    ├── Account age calculation
+    └── Activity intensity metrics
+def _reliability_features():
+    ├── Repayment behavior analysis
+    ├── Borrow/repay volume ratios
+    ├── Transaction frequency consistency
+    └── Time-based reliability patterns
+def _utilization_features():
+    ├── Debt-to-collateral ratios
+    ├── Deposit vs borrow patterns
+    ├── Healthy utilization scoring
+    └── Position management analysis
+def _behavioral_features():
+    ├── Time-based activity patterns
+    ├── Asset diversification analysis
+    ├── Transaction timing consistency
+    └── Weekend/weekday activity ratios
+def _liquidation_risk_features():
+    ├── Liquidation event detection
+    ├── Recent activity analysis
+    ├── Risk score calculation
+    └── Historical risk patterns
+def _bot_detection_features():
+    ├── Transaction regularity analysis
+    ├── Round number bias detection
+    ├── Amount pattern analysis
+    └── Behavioral automation scoring
+
+4. Scoring Engine
+Purpose: Convert features into standardized credit scores
+Feature Vectors → [Component Scorers] → [Weighted Combination] → Final Score
+                         │
+        ┌────────────────┼────────────────────────────┐
+        ▼                ▼                            ▼
+   [Reliability]    [Utilization]              [Risk Scores]
+   [Longevity]      [Diversity]                [Bot Detection]
+
+
+Component Scoring System:
+
+4.1 Score Components (Weighted)
+Component                 Weight    Purpose
+├── Reliability Score     25%       Payment history & consistency
+├── Utilization Score     20%       Debt management patterns
+├── Longevity Score       15%       Account maturity & activity
+├── Liquidation Risk      15%       Historical risk events
+├── Diversity Score       10%       Asset & protocol variety
+├── Bot Behavior Score    10%       Artificial activity detection
+└── Volume Consistency    5%        Transaction pattern stability
+
+4.2 Normalization Process
+Raw Features → [0,1] Normalization → Weighted Combination → [0,1000] Scale
+
+4.3 Risk Categorization
+Score Range    Category                   Risk Level
+800-1000       Excellent (Low Risk)       Premium Tier
+700-799        Good (Moderate Risk)       Standard Tier
+600-699        Fair (Elevated Risk)       Cautious Tier
+500-599        Poor (High Risk)           Restricted Tier
+0-499          Very Poor (Very High Risk) Avoid Tier
+
+
+Data Flow Architecture
+Complete Pipeline Flow
+1. Raw JSON Input
+   ├── user-wallet-transactions.json
+   └── Nested transaction records
+
+2. Data Ingestion
+   ├── JSON parsing
+   ├── Schema mapping
+   └── Field validation
+
+3. Preprocessing
+   ├── Type conversion
+   ├── Amount normalization
+   ├── Data cleaning
+   └── Quality validation
+
+4. Feature Engineering
+   ├── Per-wallet feature extraction
+   ├── Behavioral pattern analysis
+   ├── Risk indicator calculation
+   └── Bot detection scoring
+
+5. Component Scoring
+   ├── Feature normalization (0-1)
+   ├── Component-specific scoring
+   ├── Risk-based inversions
+   └── Quality adjustments
+
+6. Final Scoring
+   ├── Weighted combination
+   ├── Scale to 1000-point system
+   ├── Risk categorization
+   └── Score validation
+
+7. Output Generation
+   ├── CSV export (wallet_credit_scores.csv)
+   ├── Statistical reports
+   ├── Distribution analysis
+   └── Visualization charts
+
+Memory and Performance Architecture
+Efficient Processing Design:
+Data Loading → Chunked Processing → Vectorized Operations → Memory Management
+     │                │                    │                    │
+     ▼                ▼                    ▼                    ▼
+[Pandas DataFrame] [Per-Wallet] [NumPy Operations] [Garbage Collection]
+
+
+Extension Points
+Adding New Features:
+# Add new feature extractor
+def _new_risk_features(self, wallet_data):
+    # Custom feature logic
+    return features
+
+# Register in main feature calculation
+def _calculate_wallet_features(self, wallet_data):
+    features.update(self._new_risk_features(wallet_data))
+
+Error Handling and Robustness
+Fault Tolerance Design
+Input Validation → Processing Safeguards → Output Validation
+        │                   │                    │
+        ▼                   ▼                    ▼
+[Schema Checks] [Exception Handling] [Score Bounds]
+[Data Quality]  [Default Values]     [Category Logic]
+
+
+### Core Scoring Components
+
+7 weighted components to calculate the final credit score:
+
+1. **Reliability Score (25%)** - Payment history and transaction consistency
+2. **Utilization Score (20%)** - Debt-to-collateral ratios and borrowing patterns
+3. **Longevity Score (15%)** - Account age and sustained activity
+4. **Liquidation Risk Score (15%)** - Historical liquidations and risk indicators
+5. **Diversity Score (10%)** - Asset and action variety
+6. **Bot Behavior Score (10%)** - Anti-bot detection (inverted)
+7. **Volume Consistency Score (5%)** - Transaction volume patterns
+
+## Processing Flow
+
+### 1. Data Loading & Preprocessing
+- Load JSON transaction data
+- Extract nested actionData fields
+- Map fields to standardized schema
+- Convert timestamps and normalize amounts
+- Filter invalid transactions
+
+### 2. Feature Engineering
+For each wallet, calculate:
+- **Basic Metrics**: Transaction count, volume, asset diversity
+- **Reliability Indicators**: Repayment ratios, frequency consistency
+- **Utilization Patterns**: Borrow/deposit ratios, collateral usage
+- **Behavioral Signals**: Time patterns, action diversity
+- **Risk Indicators**: Liquidation history, recent activity
+- **Bot Detection**: Amount patterns, transaction regularity
+
+### 3. Component Scoring
+Transform raw features into 0-1 normalized scores:
+- Apply domain-specific scoring functions
+- Handle edge cases and missing data
+- Invert risk-based components (higher score = lower risk)
+
+### 4. Final Score Calculation
+- Apply weighted combination of component scores
+- Scale to 0-1000 point system
+- Categorize into risk levels
+
+### 5. Report Generation
+- Generate comprehensive scoring report
+- Identify top and bottom performers
+- Calculate distribution statistics
+
+## Installation
+
 
 ### Key Findings
 
