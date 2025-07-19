@@ -5,24 +5,21 @@ DeFi Credit Scoring System - The goal is to develop a robust machine learning mo
 
 ### Key Findings
 
-1. **Average Credit Score**: [X.X] points
-2. **Score Standard Deviation**: [X.X] points
-3. **Median Score**: [X.X] points
-4. **Mode Category**: [Most common risk category]
+**Average Credit Score**: 624.3 points
 
 ## Component Score Analysis
 
 ### Component Performance Averages
 
-| Component                    | Average Score | Weight | Contribution |
-|------------------------------|---------------|--------|--------------|
-| Reliability Score            | 0.XXX         | 25%    | XX.X points  |
-| Utilization Score            | 0.XXX         | 20%    | XX.X points  |
-| Longevity Score              | 0.XXX         | 15%    | XX.X points  |
-| Liquidation Risk Score       | 0.XXX         | 15%    | XX.X points  |
-| Diversity Score              | 0.XXX         | 10%    | XX.X points  |
-| Bot Behavior Score           | 0.XXX         | 10%    | XX.X points  |
-| Volume Consistency Score     | 0.XXX         | 5%     | XX.X points  |
+| Component                    | Average Score | Weight | 
+|------------------------------|---------------|--------|
+| Reliability Score            | 0.451         | 25%    | 
+| Utilization Score            | 0.927         | 20%    | 
+| Longevity Score              | 0.148         | 15%    | 
+| Liquidation Risk Score       | 1.000         | 15%    | 
+| Diversity Score              | 0.512         | 10%    | 
+| Bot Behavior Score           | 0.990         | 10%    | 
+| Volume Consistency Score     | 0.076         | 5%     | 
 
 ## Behavioral Analysis by Score Range
 
