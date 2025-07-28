@@ -20,8 +20,6 @@ The Architecture for this model is as follows
 └─────────────────────┘     └──────────────────────┘     └─────────────────────┘
 </pre>
 
-Here are all the HTML pre tags for your architecture documentation:
-
 
 ## Core Components Breakdown
 
